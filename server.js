@@ -1,22 +1,23 @@
-#!/usr/bin/yarn dev
-/**
- * Express Js Server
- */
+// Import the required modules
+const express = require('express');
+const bodyParser = require('body-parser');
 
-import express from 'express';
-import routes from './routes/index'; 
+// Import the routes
+const routes = require('./routes/index');
 
-const server = express();
+// Create the Express app
+const app = express();
 
-server.use(express.json());
+// Parse JSON requests
+app.use(bodyParser.json());
 
-server.use(routes);
+// Load all routes from the file routes/index.js
+app.use('/', routes);
 
-const PORT = process.env.PORT || 5000;
+// Define the port to listen on
+const port = process.env.PORT || 5000;
 
 // Start the server
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
-
-export default server
